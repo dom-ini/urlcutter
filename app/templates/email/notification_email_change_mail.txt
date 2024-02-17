@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+Your email address on our website has been changed. If you didn't expect that, your account might have been compromised.
+
+If you want to ask us a question, please visit our contact page:
+
+{{ url_for('main.contact_view', _external=True) }}
+
+Sincerely,
+URL Cutter Team

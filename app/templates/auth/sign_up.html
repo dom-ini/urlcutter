@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-form-container text-center">
+    <div class="form-signin">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <a href="{{ url_for('main.index_view') }}">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo" id="login-form-logo" class="mb-4">
+            </a>
+            <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+            {% include 'flash_messages.html' %}
+            <div class="form-floating">
+                {{ form.username(class='form-control', placeholder='Username') }}
+                {{ form.username.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.email(class='form-control', placeholder='Email address', type='email') }}
+                {{ form.email.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.password1(class='form-control', placeholder='Password') }}
+                {{ form.password1.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.password2(class='form-control', placeholder='Confirm password') }}
+                {{ form.password2.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.recaptcha() }}
+            </div>
+            <p>{{ form.submit(class='w-100 btn btn-lg btn-primary') }}</p>
+            <div class="login-form-footer">
+                <span>Already have an account? <a href="{{ url_for('auth.login_view') }}">Sign in!</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+{#<div class="container-fluid">#}
+{#    <form action="" method="post">#}
+{#        <label for="username">Username: </label>#}
+{#        <input type="text" name="username" id="username">#}
+{#        <label for="password">Password: </label>#}
+{#        <input type="password" name="password" id="password">#}
+{#        <input type="submit" value="Register">#}
+{#    </form>#}
+{#    {% with messages = get_flashed_messages() %}#}
+{#    {% if messages %}#}
+{#    <div class="alert alert-danger">#}
+{#        {{ messages[0] }}#}
+{#    </div>#}
+{#    {% endif %}#}
+{#    {% endwith %}#}
+{#</div>#}
+{% endblock %}

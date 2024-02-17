@@ -1,0 +1,59 @@
+<nav class="navbar navbar-light navbar-expand-lg">
+        <a class="navbar-brand mx-5 d-lg-inline-block d-none" href="{{ url_for('main.index_view') }}">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo" width="150px">
+        </a>
+        <a class="navbar-brand d-lg-none d-inline-block ms-5" href="{{ url_for('main.index_view') }}">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo" width="150px">
+        </a>
+        <button class="navbar-toggler mx-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="ms-3 navbar-nav align-items-lg-center text-end mx-lg-0 mx-3">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item d-lg-none d-inline-block">
+              <a class="nav-link" href="{{ url_for('main.user_view', username=current_user.username) }}">My URLs</a>
+            </li>
+            <li class="nav-item d-lg-none d-inline-block">
+              <a class="nav-link" href="{{ url_for('main.account_settings_view', username=current_user.username) }}">Settings</a>
+            </li>
+            <li class="nav-item d-lg-none d-inline-block">
+                <a class="nav-link" href="{{ url_for('auth.logout_view') }}">Logout</a>
+            </li>
+            <li class="nav-item dropdown mx-3">
+                <a class="btn btn-primary d-none d-lg-inline-block dropdown-toggle" data-bs-toggle="dropdown"
+                   href="#">My Account</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('main.user_view', username=current_user.username) }}">
+                        <i class="bi bi-link dropdown-icon"></i>
+                        <span>My URLs</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('main.account_settings_view', username=current_user.username) }}">
+                        <i class="bi bi-gear dropdown-icon"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item me-5">
+                <a class="btn btn-outline-primary d-none d-lg-inline-block" href="{{ url_for('auth.logout_view') }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item mx-3">
+              <a class="btn btn-outline-primary d-none d-lg-inline-block" href="{{ url_for('auth.login_view') }}">Login</a>
+            </li>
+            <li class="nav-item me-5">
+              <a class="btn btn-primary d-none d-lg-inline-block" href="{{ url_for('auth.sign_up_view') }}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-inline-block d-lg-none" href="{{ url_for('auth.login_view') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-inline-block d-lg-none" href="{{ url_for('auth.sign_up_view') }}">Sign Up</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+
+</nav>

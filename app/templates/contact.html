@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+
+<div class="form-container justify-content-center">
+    <div class="form-big shadow border my-3">
+        <form action="" method="post" class="form">
+            {{ form.hidden_tag() }}
+            <h3>Contact me</h3>
+            <p>Want to ask me a question? Feel free to contact me! :)</p>
+            {% include 'flash_messages.html' %}
+            <div class="border-top my-3"></div>
+            <div class="form-floating mb-3">
+                {{ form.name(class='form-control', placeholder='Name') }}
+                {{ form.name.label }}
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.email(class='form-control', placeholder='Email address', type='email',
+                        value=email if email else '') }}
+                {{ form.email.label }}
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.subject(class='form-control', placeholder='Subject') }}
+                {{ form.subject.label }}
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.message(class='form-control message-box', placeholder='Message') }}
+                {{ form.message.label }}
+            </div>
+            <p>{{ form.submit(class="btn btn-primary w-100") }}</p>
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
+

@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+Thank you for joining! In order to activate your account, please click on the link below:
+
+{{ url_for('auth.confirm_email_view', token=token, _external=True) }}
+
+If it was not you who signed up, ignore this message.
+
+Sincerely,
+URL Cutter Team

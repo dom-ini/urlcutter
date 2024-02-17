@@ -1,0 +1,5 @@
+Message from {{ name if name else '' }} <{{ sender_email }}>
+
+Subject: {{ subject }}
+
+{{ message }}

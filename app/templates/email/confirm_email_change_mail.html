@@ -1,0 +1,9 @@
+<p>Dear {{ user.username }},</p>
+<p>To confirm email address change on your account, please
+    <a href="{{ url_for('auth.change_email_view', username=user.username, token=token, _external=True) }}">click here.</a>
+</p>
+<p>If that doesn't work, you can paste the link below into your browser's address bar:</p>
+<p>{{ url_for('auth.change_email_view', username=user.username, token=token, _external=True) }}</p>
+<p>If it was not you who requested email address change, ignore this message.</p>
+<p>Sincerely,</p>
+<p>URL Cutter Team</p>

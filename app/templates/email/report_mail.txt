@@ -1,0 +1,5 @@
+Short: {{ short }}
+Leading to: {{ long }}
+Reported by: {{ sender_email }}
+Reason: {{ reason }}
+Description: {{ description }}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <h3>Welcome, {{ current_user.username }}!</h3>
+        <div class="flash-container">
+            {% include 'flash_messages.html' %}
+        </div>
+        </div>
+        {% if urls|length < 1 %}
+        <h5>You have no active shortened URLs! <a href="{{ url_for('main.index_view') }}">Create one here</a></h5>
+        {% else %}
+        <table id="urls-table" class="table table-hover shadow border align-middle stripe">
+            <thead>
+                <tr>
+                    <th>Original URL</th>
+                    <th>Short URL</th>
+                    <th>Created At</th>
+                    <th>Modified At</th>
+                    <th>Valid Til</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url in urls %}
+                <tr>
+                    <td>{{ url.long }}<br> <a href="{{ url_for('main.go_to_original_view', short=url.short) }}" target="_blank" title="Go to">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a><a class="show_qr_button" href="#" title="Show QR code" data-bs-toggle="modal" data-bs-target="#show_qr_modal" data-short="{{ url.short }}"><i class="bi bi-upc-scan"></i></a></td>
+                    <td>{{ url.short }}</td>
+                    <td>{{ moment(url.created_at).format('YYYY-MM-DD HH:mm') }}</td>
+                    <td>{{ moment(url.modified_at).format('YYYY-MM-DD HH:mm') }}</td>
+                    <td>{{ moment(url.valid_til).format('YYYY-MM-DD HH:mm') }}</td>
+                    <td class="justify-content-center text-center align-items-center align-content-center d-table-cell">
+                        <a class="btn-sm btn-primary" href="{{ url_for('main.update_url_view', url_id=url.id) }}">Update</a>
+                        <a class="btn-sm btn-danger delete_url_btn" href="" data-bs-toggle="modal" data-bs-target="#delete_url_modal" data-id="{{ url.id }}"
+                           data-short="{{ url.short }}" >Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="show_qr_modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modal-qr-header"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="qrcode-user"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="#close-qr-modal-button" type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'delete_url_modal.html' %}
+{% include 'footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+    <script charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="{{ url_for('static', filename='js/qrcode.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/userUrls.js') }}"></script>
+{% endblock %}
+

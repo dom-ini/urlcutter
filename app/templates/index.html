@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="main-heading text-center">
+                    <p>Tired of long, unreadable URLs?</p>
+                    <h1>Meet the free URL Cutter!</h1>
+                </div>
+                <div class="form-container justify-content-center">
+                    <div class="form-big" id="index-form-container">
+                        <div class="shorten-url-success-container justify-content-center text-center">
+
+                        </div>
+                        <form action="" method="post" id="url-shorten-form">
+                            {{ form.hidden_tag() }}
+                            <div class="shorten-input-group d-sm-flex justify-content-center">
+                                <div class="form-floating shorten-input">
+                                    {{ form.long(class='form-control', placeholder='Paste the URL...', required=False, id='url-input') }}
+                                    {{ form.long.label }}
+                                </div>
+                                <div class="text-center">
+                                    {{ form.submit(class='btn btn-primary input-group-text', id='shorten-url') }}
+                                </div>
+                            </div>
+                            <a data-bs-toggle="collapse" href="#options" id="advanced" aria-expanded="false" class="btn-link">Advanced Settings <i class="bi bi-chevron-down"></i></a>
+                            <div class="collapse my-2" id="options">
+                                {% if current_user.is_authenticated %}
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" id="custom_short_check" name="custom_short_check" class="form-check-input">
+                                    <label for="custom_short_check" class="form-check-label">Custom short URL</label>
+                                </div>
+                                <div class="form-floating">
+                                    {{ form.short(id='short', class='form-control', placeholder='Short URL', maxlength=7, disabled=True) }}
+                                    {{ form.short.label }}
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" id="custom_valid_til_check" name="custom_valid_til_check" class="form-check-input">
+                                    <label for="custom_valid_til_check" class="form-check-label">Custom Expiration Date</label>
+                                </div>
+                                <div class="form-floating">
+                                    {{ form.valid_til(id='valid-til', class='form-control', disabled=True, value=default_lifespan ) }}
+                                    {{ form.valid_til.label }}
+                                </div>
+                                {% else %}
+                                <div><a href="{{ url_for('auth.login_view') }}">Sign in</a> to see advanced options!</div>
+                                {% endif %}
+                            </div>
+                        </form>
+                        {% include 'flash_messages.html' %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% include 'footer.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/qrcode.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dtsel.js') }}"></script>
+{% endblock %}
+

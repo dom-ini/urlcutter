@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-form-container text-center">
+    <div class="form-signin">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <a href="{{ url_for('main.index_view') }}">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo" id="login-form-logo" class="mb-4">
+            </a>
+            <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+            {% include 'flash_messages.html' %}
+            <div class="form-floating">
+                {{ form.username(class='form-control', placeholder='Username') }}
+                {{ form.username.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.password(class='form-control', placeholder='Password') }}
+                {{ form.password.label }}
+            </div>
+            <div class="checkbox mb-3">
+                {{ form.remember() }}
+                {{ form.remember.label }}
+            </div>
+            <p>{{ form.submit(class='w-100 btn btn-lg btn-primary') }}</p>
+            <div class="login-form-footer">
+                <span>Don't have an account? <a href="{{ url_for('auth.sign_up_view') }}">Sign up!</a></span><br>
+                <a href="{{ url_for('auth.reset_password_request_view') }}" class="">Forgot password?</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
