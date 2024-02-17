@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+    <div class="form-container justify-content-center">
+        <div class="form-medium border shadow my-3">
+            <form action="" method="post" class="form">
+                <h3>Change email address</h3>
+                <p class="text-justify">You will receive a confirmation link to your new email address.</p>
+                {% include 'flash_messages.html' %}
+                <div class="border-top my-3"></div>
+                {{ form.hidden_tag() }}
+                <div class="form-floating">
+                    <input id="current-mail" placeholder="Current email address" type="text" readonly class="form-control" value="{{ current_user.email }}">
+                    <label for="current-mail" class="label-floating">Current email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.email(class='form-control', placeholder='Email address', type='email') }}
+                    {{ form.email.label }}
+                </div>
+                <p>Type in your password to confirm.</p>
+                <div class="form-floating mb-3">
+                    {{ form.password(class='form-control', placeholder='Password') }}
+                    {{ form.password.label }}
+                </div>
+                <p>{{ form.submit(class='w-100 btn btn-primary') }}</p>
+            </form>
+        </div>
+    </div>
+{% include 'footer.html' %}
+{% endblock %}

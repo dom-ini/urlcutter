@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+<div class="form-container justify-content-center">
+    <div class="form-medium border shadow">
+        <form action="" method="post" class="form">
+            {{ form.url_id(value=url.id) }}
+            {{ form.hidden_tag() }}
+            <h3>Update URL</h3>
+            <p>Here you can modify shortened URL attributes.</p>
+            {% include 'flash_messages.html' %}
+            <div class="border-top my-3"></div>
+            <div class="form-floating">
+                {{ form.long(class='form-control', placeholder='Original URL', value=url.long) }}
+                {{ form.long.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.short(class='form-control', placeholder='Short URL', value=url.short, maxlength=7) }}
+                {{ form.short.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.valid_til(id='valid-til-update', class='form-control', placeholder='Valid Til', value=url.valid_til) }}
+                {{ form.valid_til.label }}
+            </div>
+            <div class="text-center justify-content-center">
+                <p>{{ form.submit(class="btn btn-primary w-100", id='update-url') }}</p>
+                <a href="{{ url_for('main.user_view', username=current_user.username) }}" class="btn btn-outline-secondary w-50">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/updateUrl.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dtsel.js') }}"></script>
+{% endblock %}

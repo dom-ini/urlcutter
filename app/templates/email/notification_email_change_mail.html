@@ -1,0 +1,7 @@
+<p>Dear {{ user.username }},</p>
+<p>Your email address on our website has been changed.
+    If you didn't expect that, your account might have been compromised.</p>
+<p>If you want to ask us a question, please visit our
+    <a href="{{ url_for('main.contact_view', _external=True) }}">contact page.</a></p>
+<p>Sincerely,</p>
+<p>URL Cutter Team</p>

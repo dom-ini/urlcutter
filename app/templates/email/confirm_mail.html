@@ -1,0 +1,9 @@
+<p>Dear {{ user.username }},</p>
+<p>Thank you for joining! In order to activate your account, please
+    <a href="{{ url_for('auth.confirm_email_view', token=token, _external=True) }}">click here.</a>
+</p>
+<p>If that doesn't work, you can paste the link below into your browser's address bar:</p>
+<p>{{ url_for('auth.confirm_email_view', token=token, _external=True) }}</p>
+<p>If it was not you who who signed up, ignore this message.</p>
+<p>Sincerely,</p>
+<p>URL Cutter Team</p>

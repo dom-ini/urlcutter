@@ -1,0 +1,1 @@
+$(document).ready(function(){new dtsel.DTS('input[name="valid_til"]',{showTime:!0,dateFormat:"yyyy-mm-dd",timeFormat:"HH:MM"});let t=$("#valid-til-update"),m=t.val().replace(",","")+"Z";t.val(moment(m).format("YYYY-MM-DD, HH:mm")),$("#update-url").on("click",function(){let m=t.val().replace(",","");t.val(moment.utc(moment(m)).format("YYYY-MM-DD HH:mm"))})});

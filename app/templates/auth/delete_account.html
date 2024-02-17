@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+<div class="form-container justify-content-center">
+    <div class="form-medium border shadow my-3">
+        <form action="" method="post" class="form">
+            {{ form.hidden_tag() }}
+            <h2 class="text-danger"><span class="bi bi-exclamation-triangle"></span> Confirm account deletion</h2>
+            <p>Are you sure that you want to delete your account? Remember, you will lose ability to edit URLs added by you!</p>
+            <p>Warning: <b>This action cannot be undone</b>. </p>
+            <div class="border-top my-3"></div>
+            <p>To proceed, please type in your credentials below.</p>
+            {% include 'flash_messages.html' %}
+            <div class="form-floating">
+                {{ form.email(class='form-control', placeholder='Email address') }}
+                {{ form.email.label }}
+            </div>
+            <div class="form-floating">
+                {{ form.password(class='form-control', placeholder='Password') }}
+                {{ form.password.label }}
+            </div>
+            <div class="text-center justify-content-center">
+                {{ form.submit(class="btn btn-danger w-100 my-3") }}
+                <a href="{{ url_for('main.account_settings_view', username=current_user.username) }}" class="btn btn-outline-secondary w-50">Take me back</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}

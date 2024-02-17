@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+{% block content %}
+<div class="container error-container text-center">
+    <h1>500</h1>
+    <h3>Internal Server Error</h3>
+    <p>Something went wrong! The site administrator was informed about this issue.</p>
+</div>
+{% include 'footer.html' %}
+{% endblock %}
