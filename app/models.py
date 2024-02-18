@@ -1,10 +1,12 @@
-from flask_login import UserMixin
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from time import time
+
 import jwt
-from werkzeug.security import generate_password_hash, check_password_hash
+from dateutil.relativedelta import relativedelta
 from flask import current_app
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from app import db, login_manager
 
 
@@ -17,44 +19,57 @@ class UserModel(UserMixin, db.Document):
     joined_at = db.DateTimeField()
 
     def get_reset_password_token(self, expires_in=600):
-        return jwt.encode({'reset_password': str(self.id), 'exp': time() + expires_in},
-                          current_app.config['SECRET_KEY'], algorithm='HS256')
+        return jwt.encode(
+            {"reset_password": str(self.id), "exp": time() + expires_in},
+            current_app.config["SECRET_KEY"],
+            algorithm="HS256",
+        )
 
     @staticmethod
     def verify_reset_password_token(token):
         try:
-            user_id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms='HS256')['reset_password']
-        except:
-            return
+            user_id = jwt.decode(token, current_app.config["SECRET_KEY"], algorithms="HS256")["reset_password"]
+        except (KeyError, jwt.DecodeError, jwt.InvalidSignatureError):
+            return None
         return UserModel.objects(id=user_id).first()
 
     def get_email_confirmation_token(self, expires_in=3600):
-        return jwt.encode({'email_address': self.email, 'exp': time() + expires_in},
-                          current_app.config['SECRET_KEY'], algorithm='HS256')
+        return jwt.encode(
+            {"email_address": self.email, "exp": time() + expires_in},
+            current_app.config["SECRET_KEY"],
+            algorithm="HS256",
+        )
 
     @staticmethod
     def verify_email_confirmation_token(token):
         try:
-            email = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms='HS256')['email_address']
-        except:
-            return
+            email = jwt.decode(token, current_app.config["SECRET_KEY"], algorithms="HS256")["email_address"]
+        except (KeyError, jwt.DecodeError, jwt.InvalidSignatureError):
+            return None
         return UserModel.objects(email=email).first()
 
     def get_email_change_token(self, new_email, expires_in=3600):
-        return jwt.encode({'email_address': self.email, 'new_email_address': new_email, 'exp': time() + expires_in},
-                          current_app.config['SECRET_KEY'], algorithm='HS256')
+        return jwt.encode(
+            {
+                "email_address": self.email,
+                "new_email_address": new_email,
+                "exp": time() + expires_in,
+            },
+            current_app.config["SECRET_KEY"],
+            algorithm="HS256",
+        )
 
     @staticmethod
     def verify_email_change_token(token):
         try:
-            email_old = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms='HS256')['email_address']
-            email_new = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms='HS256')['new_email_address']
-        except:
-            return
+            email_old = jwt.decode(token, current_app.config["SECRET_KEY"], algorithms="HS256")["email_address"]
+            email_new = jwt.decode(token, current_app.config["SECRET_KEY"], algorithms="HS256")["new_email_address"]
+        except (KeyError, jwt.DecodeError):
+            return None
         return UserModel.objects(email=email_old).first(), email_new
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password, method='sha256')
+        self.password_hash = generate_password_hash(password, method="sha256")
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -81,7 +96,7 @@ class UrlModel(db.Document):
     user = db.StringField(required=False)
 
     def __repr__(self):
-        return f'<URL {self.long} > {self.short}>'
+        return f"<URL {self.long} > {self.short}>"
 
     def save(self, *args, **kwargs):
         if not self.created_at:

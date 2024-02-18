@@ -2,13 +2,6 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
-[tool.poetry]
-authors = ["Dominik <dominik.szlaza@gazeta.pl>"]
-description = ""
-name = "urlcutter"
-readme = "README.md"
-version = "0.1.0"
-
 [tool.black]
 line-length = 120
 target-version = ["py310"]
@@ -19,6 +12,13 @@ include_trailing_comma = "true"
 known_first_party = ["src"]
 line_length = 120
 multi_line_output = 3
+
+[tool.poetry]
+authors = ["Dominik <dominik.szlaza@gazeta.pl>"]
+description = ""
+name = "urlcutter"
+readme = "README.md"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 atomicwrites = "1.4.0"
