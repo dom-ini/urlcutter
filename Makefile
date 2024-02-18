@@ -8,8 +8,6 @@ flake8:
 	poetry run flake8 .
 isort:
 	poetry run isort .
-pylint:
-	poetry run pylint --recursive=y
 black:
 	poetry run black .
-lint: black flake8 isort pylint toml_sort
+lint: black flake8 isort toml_sort
