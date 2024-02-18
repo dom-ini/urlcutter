@@ -17,8 +17,7 @@ class Config(object):
     RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
     SESSION_TYPE = os.environ.get('SESSION_TYPE')
     MONGODB_DB = os.environ.get('MONGODB_DB')
-    MONGODB_HOST = os.environ.get('MONGODB_HOST')
+    MONGODB_HOST = os.environ.get('MONGODB_URL')
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     URLS_PER_PAGE = 10
     DEFAULT_LIFESPAN_Y = 2
-
