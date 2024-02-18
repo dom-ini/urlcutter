@@ -1,12 +1,47 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
 [tool.poetry]
-name = "urlcutter"
-version = "0.1.0"
-description = ""
 authors = ["Dominik <dominik.szlaza@gazeta.pl>"]
+description = ""
+name = "urlcutter"
 readme = "README.md"
+version = "0.1.0"
+
+[tool.black]
+line-length = 120
+target-version = ["py310"]
+
+[tool.isort]
+combine_as_imports = "true"
+include_trailing_comma = "true"
+known_first_party = ["src"]
+line_length = 120
+multi_line_output = 3
+
+[tool.pylint.BASIC]
+good-names = "id,i,j,k"
+
+[tool.pylint.DESIGN]
+max-args = 5
+max-attributes = 8
+max-parents = 14
+min-public-methods = 1
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = "missing-docstring, logging-fstring-interpolation"
+
+[tool.pylint.SIMILARITIES]
+ignore-comments = "yes"
+ignore-docstrings = "yes"
+ignore-imports = "yes"
+min-similarity-lines = 6
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
 atomicwrites = "1.4.0"
 attrs = "20.3.0"
 blinker = "1.4"
@@ -34,6 +69,7 @@ py = "1.10.0"
 pyjwt = "2.0.1"
 pyngrok = "5.0.5"
 pyparsing = "2.4.7"
+python = "^3.8.1"
 python-dateutil = "2.8.1"
 python-dotenv = "0.17.0"
 pyyaml = "5.4.1"
@@ -41,7 +77,6 @@ six = "1.15.0"
 toml = "0.10.2"
 werkzeug = "1.0.1"
 wtforms = "2.3.3"
-
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.7"
@@ -51,7 +86,3 @@ flake8 = "^7.0.0"
 isort = "^5.13.2"
 pylint = "^3.0.3"
 toml-sort = "^0.23.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
